@@ -1,0 +1,97 @@
+<?xml version="1.0"?>
+<!--
+  To run this build script, type: 
+
+  ant -f hw.xml
+
+  on a shell. 
+-->
+
+<project name="SortingApfsWithComparator" basedir="."  default="clean">
+    <property environment="env" />
+    <echo message="ANT_HOME: ${env.ANT_HOME}" />
+
+    <property name="src" location="src" />
+    <property name="bin" location="bin" />
+	<property name="test.src" location="test/src" />
+	<property name="test.bin" location="test/bin" />
+    <property name="test.reports" location="test/reports" />
+
+    <path id="classpath">
+        <pathelement location="bin" />
+		<pathelement location="test/bin" />
+		<fileset dir="${env.JUNIT}" includes="*junit*.jar" excludes="*vintage*.jar" />
+		<fileset dir="${env.JUNIT}" includes="*opentest4j*.jar" />
+		<fileset dir="${env.JUNIT}" includes="*apiguardian*.jar" />
+    </path>
+    <echo message="${env.JUNIT}" />
+    <echo message="${toString:classpath}" />
+
+    <target name="init">
+        <mkdir dir="${bin}" />
+		<mkdir dir="${test.bin}"/>
+		<mkdir dir="${test.reports}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src}" destdir="${bin}" includeAntRuntime="no">
+            <classpath refid="classpath" />
+			<include name="edu/umb/cs680/hw12/fs/FSElement.java" />
+            <include name="edu/umb/cs680/hw12/fs/FileSystem.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsFile.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsDirectory.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsLink.java" />
+            <include name="edu/umb/cs680/hw12/apfs/APFS.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsElement.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsVisitor.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsCountingVisitor.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsFileCrawlingVisitor.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsFileSearchVisitor.java" />
+            <include name="edu/umb/cs680/hw12/apfs/AlphabeticalComparator.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ReverseAlphabeticalComparator.java" />
+            <include name="edu/umb/cs680/hw12/apfs/LastModifiedComparator.java" />
+            <include name="edu/umb/cs680/hw12/apfs/CreationTimeComparator.java" />
+        </javac>
+        <echo message="${toString:classpath}" />
+        <javac srcdir="${test.src}" destdir="${test.bin}" includeAntRuntime="no">
+            <classpath refid="classpath" />
+			<include name="edu/umb/cs680/hw12/apfs/ApfsDirectoryTest.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsFileTest.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsLinkTest.java" />
+            <include name="edu/umb/cs680/hw12/apfs/APFSTestFixtureInitializer.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsVisitorTest.java" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsComparatorTest.java" />
+		</javac>
+	</target>
+
+    <!-- target name="run" depends="compile">
+        <java classname="edu.umb.cs680.hw06.DVDPlayer"
+                classpathref="classpath"
+                fork="true" />
+    </target -->
+
+    <target name="test" depends="compile">
+        <junitlauncher printSummary="true">
+            <classpath refid="classpath" />
+            <testclasses outputdir="test">
+                <fileset dir="${test.bin}">
+			<include name="edu/umb/cs680/hw12/apfs/ApfsDirectoryTest.class" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsFileTest.class" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsLinkTest.class" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsVisitorTest.class" />
+            <include name="edu/umb/cs680/hw12/apfs/ApfsComparatorTest.class" />
+                </fileset>
+                <listener type="legacy-plain" sendSysOut="true" />
+            </testclasses>
+        </junitlauncher>
+    </target>
+
+	<target name="clean" depends="test">
+		<delete includeemptydirs="true">
+			<fileset dir="${bin}/edu/umb/cs680/hw12" includes="**/*"/>
+			<fileset dir="${test.bin}/edu/umb/cs680/hw12" includes="**/*" />
+		</delete>
+        <echo message="Class files deleted succesfully." />
+	</target>
+
+</project>
