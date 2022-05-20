@@ -1,0 +1,12 @@
+Testcase: edu.umb.cs680.hw06.DVDPlayerTest
+Test: drawerClosedNotPlayingOpenCloseButtonPushed() took 13 milli sec(s)
+Test: compareInstances() took 1 milli sec(s)
+Test: drawerOpenPlayButtonPushed() took 1 milli sec(s)
+Test: drawerClosedNotPlayingPlayButtonPushed() took 0 milli sec(s)
+Test: drawerClosedPlayingOpenCloseButtonPushed() took 0 milli sec(s)
+Test: drawerClosedPlayingPlayButtonPushed() took 0 milli sec(s)
+Test: drawerOpenStopButtonPushed() took 1 milli sec(s)
+Test: drawerClosedNotPlayingStopButtonPushed() took 0 milli sec(s)
+Test: drawerClosedPlayingStopButtonPushed() took 1 milli sec(s)
+Test: drawerOpenOpenCloseButtonPushed() took 0 milli sec(s)
+Tests run: 10, Failures: 0, Skipped: 0, Aborted: 0, Time elapsed: 26 milli sec(s)
